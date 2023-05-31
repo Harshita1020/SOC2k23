@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@500&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'merriweather sans', sans-serif;
+}
+body{
+    color: antiquewhite;
+    background: url(hobbies.png) no-repeat;
+    background-size: cover ;
+}
+.header{
+    text-align: right;
+    color: antiquewhite;
+    padding: 30px;   
+}
+.navbar a{
+    color: antiquewhite;
+    text-decoration: none;
+    padding: 20px;
+    font-size: 25px;
+    padding-right: 40px;
+}
+.navbar a:hover{
+    color: aquamarine;
+
+}
+.hobbies-content h1{
+    font-size: 60px;
+    color: skyblue;
+    padding-bottom: 30px;
+}
+.hobbies-content p{
+    font-size: 30px;
+    padding-bottom: 20px;
+}
+.hobbies-content{
+    margin: 20px;
+}
+.option{
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+button{
+    font-size: 20px;
+    margin: 20px;
+    width: 90px;
+    height: 30px;
+    border-radius: 10px;
+}
+.footerContainer{
+    background-color: transparent; 
+    position: absolute;
+    bottom: 0%;
+    width: 100%;
+    top: 87%;
+    
+}
+.socialIcons a{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    position: relative;
+    left: 45%;
+    text-decoration: none;
+    padding: 5px;
+    border: 2px solid skyblue;
+    border-radius: 50%;
+    margin: 5px 15px 0px 0;
+    color: skyblue;
+    
+}
+.socialIcons a:hover{
+    background: skyblue;
+    color: black;
+    box-shadow: 0 0 40px skyblue;
+
+}
+.text p{
+    font-size: 30px;
+    text-align: center;
+}

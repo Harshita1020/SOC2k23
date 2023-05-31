@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My Personal Website</title>
+
+        <link rel="stylesheet" href="style_hobbies.css">
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    </head>
+    <body>
+        <header class="header">
+            
+            <nav class="navbar">
+                <a href="index.html">Home</a>
+                <a href="hobbies.html"> Hobbies</a>
+                <a href="education.html">Education</a>
+            </nav>
+        </header>
+    <section class="hobbies">
+        <div class="hobbies-content">
+            <h1>My Hobbies</h1>
+            <p>Here are a list of my hobbies. You can select multiple options to know more about them</p>
+            <form id="hobbies">
+                <div class="option">
+                    <input type="checkbox" id="option1" value="Badminton">
+                    <label for="option1">Badminton</label><br>
+                    </div>
+                    <div class="option">
+                    <input type="checkbox"  id="option2" value="Sketching">
+                    <label for="option2">Sketching</label><br>
+                    </div>
+                    <div class="option">
+                    <input type="checkbox" id="option3" value="Music">
+                    <label for="option3">Music</label><br>
+                    </div>
+                </div>
+                <button type="submit" onclick="showConfirmation()">Submit</button> 
+            </form>
+
+           <div id="result">
+        
+            <p id="selectedOptions"></p>
+           </div>
+        </div>
+        <script>
+            function showConfirmation() {
+  event.preventDefault(); // Prevent form submission
+
+  // Get all checked checkboxes
+  var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+
+  if (checkboxes.length > 0) {
+    var selectedOptions = [];
+
+    // Generate the selected options with descriptions
+    checkboxes.forEach(function (checkbox) {
+      var option = {
+        name: checkbox.value,
+        description: getDescription(checkbox.value) // Call a function to get the description for each option
+      };
+      selectedOptions.push(option);
+    });
+
+    // Display the confirmation popup
+    var confirmation = confirm("Are you sure you want to proceed with the selected options?");
+
+    if (confirmation) {
+      // Show the selected options descriptions
+      var optionsHtml = "";
+      selectedOptions.forEach(function (option) {
+        optionsHtml += "<strong>" + option.name + ":</strong> " + option.description + "<br><br>";
+      });
+      document.getElementById("selectedOptions").innerHTML = optionsHtml;
+      document.getElementById("result").style.display = "block";
+    }
+  }
+}
+
+// Example function to get the description for each option
+function getDescription(optionName) {
+  // Customize the descriptions as per your needs
+  if (optionName === "Badminton") {
+    return "I love to play Badminton and I have been playing it since very long.";
+  } else if (optionName === "Sketching") {
+    return "I enjoy doing sketching and I am pretty good at it as I have learnt it in my childhood.";
+  } else if (optionName === "Music") {
+    return "I enjoy listening music and it remains in my top of the list whenever I am free.";
+  }
+
+  // Return a default description if no match found
+  return "No description available.";
+}
+
+        </script>
+    </section>
+    <footer>
+        <div class="footerContainer">
+            <div class="text">
+                <p>Let's  Connect!</p>
+            </div>
+            <div class="socialIcons">
+            <a href="#"><i class='bx bxl-instagram'></i></a>
+            <a href="#"><i class='bx bxl-gmail'></i></a>
+            <a href="linkedin.com/in/harshita-gaikwad-101791229"><i class='bx bxl-linkedin' ></i></a>
+            </div>
+            </div>
+        </footer>
+    </body>
+    </html>
+        
+    
