@@ -1,0 +1,109 @@
+1) Ans. SELECT name FROM student
+UNION 
+SELECT name FROM instructor ;
+
+2) SELECT distinct course.course_id, title,teaches.id FROM course,teaches WHERE teaches.course_id=course.course_id;
+
+
+3) SELECT instructor.ID, instructor.name, instructor.salary 
+FROM instructor 
+WHERE instructor.salary < 75000 ;
+
+4) SELECT department.dept_name, count(*) as num_instructors
+FROM department 
+JOIN instructor ON instructor.dept_name = department.dept_name
+GROUP BY department.dept_name ;
+
+5) SELECT course.title, prereq.course_id, prereq.prereq_id
+FROM prereq
+CROSS JOIN course WHERE prereq.course_id = course.course_id ;
+
+6) SELECT instructor.name 
+FROM instructor 
+JOIN department ON instructor.dept_name = department.dept_name
+WHERE instructor.salary > department.budget/10
+
+7)  SELECT b.dept_name
+ FROM department 
+AS b WHERE (SELECT count(a.dept_name) FROM department AS a WHERE b.building = a.building GROUP BY a.building ) > 1;
+
+8)  SELECT department.dept_name, COUNT(*)*5000 as income
+FROM department 
+JOIN student ON student.dept_name = department.dept_name
+GROUP BY department.dept_name ;
+
+9) SELECT instructor.ID 
+FROM instructor 
+WHERE instructor.ID not in ( 
+SELECT teaches.ID FROM teaches 
+UNION
+SELECT advisor.i_id FROM advisor
+) ;
+
+10) SELECT student.ID, student.name
+FROM student,takes,course
+WHERE student.ID = takes.ID AND course.dept_name = 'Comp. Sci.' AND takes.course_id=course.course_id 
+
+INTERSECT
+
+SELECT student.ID, student.name
+FROM student,takes,course
+WHERE course.dept_name = 'Biology' AND takes.course_id=course.course_id AND student.ID = takes.ID
+
+11) SELECT ID, name 
+FROM student
+WHERE total_credits > 30 ;
+
+12) SELECT ID, name, dept_name, building
+FROM instructor JOIN department ;
+
+13) SELECT count(distinct ID)
+FROM takes
+GROUP BY course.course_id ;
+
+14) SELECT ID 
+FROM student 
+WHERE course_id = 'CS-101' and course_id in (SELECT ID FROM student where course_id = 'CS-109');
+
+Database 2 :-
+
+1) WITH maximum_rating(value) AS
+(SELECT MAX(ratings.rating) FROM ratings, tags WHERE tag ILIKE '%Quentin Tarantino%' AND ratings.movieId = tags.movieId)
+SELECT DISTINCT title 
+FROM movies, ratings AS new_rating, maximum_rating
+WHERE genres ILIKE '%Drama%'
+AND new_rating.rating >= maximum_rating.value
+AND movies.movieId = new_rating.movieId ;
+
+2) SELECT DISTINCT userId FROM ratings, movies
+WHERE ratings.movieId = movies.movieId AND
+movies.movieId <=3 AND
+genres ILIKE '%Comedy%' ;
+
+3) WITH group_ratings(rating, users_count) as 
+(SELECT ratings.rating, COUNT(*) FROM ratings, movies  WHERE movies.title = 'City Hall (1996)'AND ratings.movieId = movies.movieId GROUP BY rating)
+SELECT group_ratings.rating, group_ratings.users_count FROM group_ratings
+UNION
+SELECT generate_series AS rating, 0 AS users_count FROM generate_series(0.0, 5.0, 0.5)
+WHERE NOT EXISTS
+(SELECT rating FROM group_ratings WHERE generate_series = rating)
+ORDER BY rating  ;
+
+4) SELECT movieId, title, UNNEST(string_to_array(genres, '|')) AS genre FROM movies ;
+
+5) WITH movies_seperated AS 
+(SELECT movieId, title, UNNEST(string_to_array(genres, '|')) AS genre FROM movies)
+SELECT genre, COUNT(movieId) AS COUNT FROM movies_seperated GROUP BY genre ;
+
+6) WITH comedy_rating(rating) AS 
+(SELECT AVG(ratings.rating) FROM movies , ratings WHERE movies.movieId = ratings.movieId AND genres ILIKE '%Comedy%'),
+average_children(rating, title, movieId) AS 
+(SELECT AVG(ratings.rating), title, movies.movieId FROM movies, ratings WHERE movies.movieId = ratings.movieId AND genres ILIKE '%Children%' GROUP BY movies.movieId, title)
+SELECT movieId, title
+FROM comedy_rating, average_children
+WHERE average_children.rating > comedy_rating.rating ;
+
+
+
+
+
